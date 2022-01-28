@@ -1,0 +1,50 @@
+# My setups
+
+If you're a transphobe, these aren't what are you looking for.
+
+## Keyboard
+
+![This setup is done with MSI Center using Mystic Lights plugin.](https://raw.github.com/windowz414/random_vendor_beru_fileshares/master/IMG_20211011_092918.jpg)
+
+MSI Vigor GK30, RGB Rubberdome, lights can be controlled using either
+the relevant key combo or MSI Center with Mystic Light plugin.
+
+## Laptop
+
+![Feat. Pride 2020 theme from MS Store](https://raw.github.com/windowz414/random_vendor_beru_fileshares/master/IMG_20220128_171456_542.jpg)
+
+(Sorry for the low quality, I don't have my laptop to capture it
+again.)
+
+HP 15-rb004nt with Windows 11 Pro, the wallpaper is from Pride 2020
+theme from Microsoft Store. You can find the standalone wallpaper
+from the root of this repository.
+
+For curious cats checking taskbar, yes I have Telegram, my username
+there is the same as here, @WindowZ414.
+
+## Phone
+
+![Main lockscreen](https://raw.github.com/windowz414/random_vendor_beru_fileshares/master/Screenshot_20220110-020356.png)
+
+The main view of lockscreen.
+
+![Password view](https://raw.github.com/windowz414/random_vendor_beru_fileshares/master/Screenshot_20220110-020402.png)
+
+The password view, don't try guessing the password, it has a unique
+logic only I and my father know of.
+
+![Home screen](https://raw.github.com/windowz414/random_vendor_beru_fileshares/master/Screenshot_20220110-020412.png)
+
+Home screen. Before you ask, yes that's Pixel Launcher.
+
+-----
+
+Before you ask, yes this is Android 7.
+LineageOMS Reloaded (LineageOMS with latest security patches merged),
+based on LineageOS 14.1. Flashed the Google Sans font flashable coming
+with OrangeFox.
+
+Device: Vestel Venus V5 (Codename: teos), MSM8920, 3 GB RAM and 32 GB
+internal storage, shipped with Android 7.1.2, maintained by me and
+nift4.
