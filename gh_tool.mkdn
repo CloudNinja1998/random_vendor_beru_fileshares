@@ -1,0 +1,253 @@
+# Some basics for `gh` and its benefits against Git CLI
+
+<h6>An official tool by GitHub, using Git as the backend!</h6>
+
+If you have been using GitHub and preferring the command line like me
+to get everything done without any complications on GUI, you might
+have noticed how GitHub started to utilize their not-so-new tool
+called `gh`. I decided to give it a shot, because it looked promising
+after all. And I personally liked it a lot - So much that I wanted to
+make an article about it!
+
+### First of all, what is this tool? How does it handle operations we would do through Git CLI?
+
+`gh` can be considered as a wrapper utilizing Git CLI itself and GitHub
+APIs to get things done. In fact, you can even pass parameters to the
+Git commands it uses! I'll get into those later on.
+
+### Installing and setting up
+
+Keep in mind that I'll go through the installatiom using **Termux**.
+But the procedure should be pretty much the same as you could have
+on a Debian-based distro - Ubuntu has it on their official repos
+for example. For Windows, well, you need either CygWin or WSL I
+suppose. ¯\\\_(ツ)_/¯
+
+```bash
+# Let's install the tool first. Also installing Git as it's the backend
+# for gh.
+
+$ pkg install git gh -y
+
+
+# Then before everything, we need to authenticate. This will save a
+# new API key on the tool's database so you won't need to authenticate
+# again. If you have already set GITHUB_TOKEN, this won't work so unset
+# it first. :)
+
+$ gh auth login
+```
+Now, before we continue here, I need to point out several things.
+- Firstly, **don't choose "GitHub Enterprise Server"** if you don't
+  have some kind of self-hosted GitHub.
+- Secondly, **use SSH instead of HTTPS if you have your public key
+  added on your GitHub account.** In case you lose the API key, you
+  at least won't lose your SSH key so it can be a good fallback method
+  as well.
+- Thirdly, choose logging in with browser **only if you don't have an
+  API key on hand!** Really, it wouldn't make sense to have another key
+  while you already have one.
+
+Once you're done setting things up, let's tell Git CLI about it.
+
+```bash
+$ gh auth setup-git
+```
+This will make the necessary Git CLI configurations just in case your
+reflexes barge in and make you use Git instead of GH.
+
+### Some basic commands
+
+Now that you've set up GH, let me teach you several basic commands
+in a story basis.
+
+First of all, let's say you want to create a pull request to my local
+manifests repo. You want to fork it first.
+
+```bash
+$ gh repo fork windowz414/platform_manifest
+! windowz414/platform_manifest already exists
+? Would you like to clone the fork? Yes
+Cloning into 'platform_manifest'...
+remote: Enumerating objects: 136, done.
+remote: Counting objects: 100% (136/136), done.
+remote: Compressing objects: 100% (81/81), done.
+remote: Total 136 (delta 46), reused 89 (delta 12), pack-reused 0
+Receiving objects: 100% (136/136), 30.70 KiB | 166.00 KiB/s, done.
+Resolving deltas: 100% (46/46), done.
+Updating upstream
+From github.com:windowz414/platform_manifest
+ * [new branch]      amyrom/rosie      -> upstream/amyrom/rosie
+ * [new branch]      aosp-eleven       -> upstream/aosp-eleven
+ * [new branch]      aosp-ten          -> upstream/aosp-ten
+ * [new branch]      arrow-11.0        -> upstream/arrow-11.0
+ * [new branch]      cm-14.1           -> upstream/cm-14.1
+ * [new branch]      dot11             -> upstream/dot11
+ * [new branch]      e/os/v1-nougat    -> upstream/e/os/v1-nougat
+ * [new branch]      fluid-11          -> upstream/fluid-11
+ * [new branch]      fox_7.1           -> upstream/fox_7.1
+ * [new branch]      hentai-rika       -> upstream/hentai-rika
+ * [new branch]      ion-pie           -> upstream/ion-pie
+ * [new branch]      lineage-15.1      -> upstream/lineage-15.1
+ * [new branch]      lineage-17.1      -> upstream/lineage-17.1
+ * [new branch]      lineage-18.1      -> upstream/lineage-18.1
+ * [new branch]      lineage-18.1_teos -> upstream/lineage-18.1_teos
+ * [new branch]      lineage-19.0      -> upstream/lineage-19.0
+ * [new branch]      main              -> upstream/main
+ * [new branch]      mkn-mr1           -> upstream/mkn-mr1
+ * [new branch]      revengeos-r11.0   -> upstream/revengeos-r11.0
+ * [new branch]      stellar-S1        -> upstream/stellar-S1
+ * [new branch]      teos-n            -> upstream/teos-n
+ * [new branch]      weebprojekt-11    -> upstream/weebprojekt-11
+✓ Cloned fork
+```
+
+Then let's say you have a separate organization for your experiments
+called "wz414-labs", that you didn't fork on your personal profile yet
+and want to clone there then open pull request through there instead.
+You also want to clone the "cm-14.1" branch so you won't need to do
+git-checkout to it again.
+
+```bash
+$ gh repo fork windowz414/platform_manifest --org="wz414-labs" -- --branch="cm-14.1"
+✓ Created fork wz414-labs/platform_manifest
+? Would you like to clone the fork? Yes
+Cloning into 'platform_manifest'...
+remote: Enumerating objects: 136, done.
+remote: Counting objects: 100% (136/136), done.
+remote: Compressing objects: 100% (81/81), done.
+remote: Total 136 (delta 46), reused 89 (delta 12), pack-reused 0
+Receiving objects: 100% (136/136), 30.70 KiB | 120.00 KiB/s, done.
+Resolving deltas: 100% (46/46), done.
+Updating upstream
+From github.com:windowz414/platform_manifest
+ * [new branch]      amyrom/rosie      -> upstream/amyrom/rosie
+ * [new branch]      aosp-eleven       -> upstream/aosp-eleven
+ * [new branch]      aosp-ten          -> upstream/aosp-ten
+ * [new branch]      arrow-11.0        -> upstream/arrow-11.0
+ * [new branch]      cm-14.1           -> upstream/cm-14.1
+ * [new branch]      dot11             -> upstream/dot11
+ * [new branch]      e/os/v1-nougat    -> upstream/e/os/v1-nougat
+ * [new branch]      fluid-11          -> upstream/fluid-11
+ * [new branch]      fox_7.1           -> upstream/fox_7.1
+ * [new branch]      hentai-rika       -> upstream/hentai-rika
+ * [new branch]      ion-pie           -> upstream/ion-pie
+ * [new branch]      lineage-15.1      -> upstream/lineage-15.1
+ * [new branch]      lineage-17.1      -> upstream/lineage-17.1
+ * [new branch]      lineage-18.1      -> upstream/lineage-18.1
+ * [new branch]      lineage-18.1_teos -> upstream/lineage-18.1_teos
+ * [new branch]      lineage-19.0      -> upstream/lineage-19.0
+ * [new branch]      main              -> upstream/main
+ * [new branch]      mkn-mr1           -> upstream/mkn-mr1
+ * [new branch]      revengeos-r11.0   -> upstream/revengeos-r11.0
+ * [new branch]      stellar-S1        -> upstream/stellar-S1
+ * [new branch]      teos-n            -> upstream/teos-n
+ * [new branch]      weebprojekt-11    -> upstream/weebprojekt-11
+✓ Cloned fork
+```
+You see I didn't use "-b cm-14.1" and did the long argument instead.
+As of the date of this article, February 15, 2022, GH has a bug that
+it doesn't pass short arguments to Git CLI correctly and so it needs
+to be done as long arguments instead.
+
+Once that is done, you regularly entered the folder, did your changes,
+committed then pushed it, and are ready to do pull request. For this,
+all you need is a simple
+
+```bash
+$ gh pr create --branch="cm-14.1"
+
+Creating pull request for wz414-labs:cm-14.1 into cm-14.1 in windowz414/platform_manifest
+
+? Title teos: Change to Git-Polycule
+? Body <Received>
+? What's next? Submit
+https://github.com/windowz414/platform_manifest/pull/1
+```
+If you don't append `--branch="cm-14.1"`, you would be creating PR
+towards `main` branch, which of course will cause issues when it's not
+handled right.
+
+And now, I need to merge this PR, right? So I first clone the repo,
+checkout to the branch assigned, and list PRs first.
+
+```bash
+# Cloning first.
+
+$ git clone https://github.com/windowz414/platform_manifest
+Cloning into 'platform_manifest'...
+remote: Enumerating objects: 136, done.
+remote: Counting objects: 100% (136/136), done.
+remote: Compressing objects: 100% (81/81), done.
+remote: Total 136 (delta 46), reused 89 (delta 12), pack-reused 0
+Receiving objects: 100% (136/136), 30.70 KiB | 137.00 KiB/s, done.
+Resolving deltas: 100% (46/46), done.
+
+# Then checking out to the branch.
+
+$ git checkout cm-14.1
+branch 'cm-14.1' set up to track 'origin/cm-14.1'.
+Switched to a new branch 'cm-14.1'
+
+# And now listing PRs.
+
+$ gh pr list
+
+Showing 1 of 1 open pull request in windowz414/platform_manifest
+
+#1  teos: Change to Git-Polycule  wz414-labs:cm-14.1
+```
+
+Now that we see there's a PR to change remote to "Git-Polycule",
+let's see what has changed with it.
+
+```bash
+$ gh pr diff 1
+diff --git a/teos.xml b/teos.xml
+index b145fc0..3aadeb6 100644
+--- a/teos.xml
++++ b/teos.xml
+@@ -2,7 +2,7 @@
+ <manifest>
+
+   <remote  name="windowz414"
+-           fetch="https://github.com/windowz414/"
++           fetch="https://git.polycule.co/windowz414/"
+            revision="cm-14.1" />
+
+   <!-- DEVICE TREES
+```
+
+Seems promising! Time to merge!
+
+```bash
+$ gh pr merge 1
+? What merge method would you like to use? Rebase and merge
+? What's next? Submit
+✓ Rebased and merged pull request #1 (teos: Change to Git-Polycule)
+```
+
+Now that I merged it, you can delete your fork.
+
+```bash
+$ gh repo delete --confirm wz414-labs/platform_manifest
+✓ Deleted repository wz414-labs/platform_manifest
+```
+
+You see that straight up deleted the repo with no confirmation request
+because I passed the `--confirm` parameter there. If you wouldn't pass
+it, you would get this:
+
+```bash
+$ gh repo delete windowz414/systemd
+? Type windowz414/systemd to confirm deletion:
+```
+
+And you would need to type the whole repo name. Time waste...
+
+### Summary
+
+Simply put, `gh` is a pretty simplified Git CLI/Curl wrapper unifying
+simple Git operations and GitHub API things under the same roof.
+How do you utilize it? Does it look promising to you like it does to
+me? Looking forward to hear from you!
